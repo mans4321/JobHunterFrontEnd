@@ -1,0 +1,125 @@
+   table {
+    border-spacing: 1;
+    width: 100%;
+    background: white;
+    border-radius: 35px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  table * {
+    position: relative;
+  }
+  table td, table th {
+    padding-left: 10px;
+  }
+  table thead tr {
+    height: 60px;
+    background: #36304a;
+  }
+  table tbody tr {
+    height: 50px;
+  }
+  table tbody tr:last-child {
+    border: 0;
+  }
+  table td, table th {
+    text-align: left;
+  }
+ 
+.table100Head th{
+    font-family: OpenSans-Regular;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #79ceda9c;
+  }
+  
+  tbody tr {
+    font-family: OpenSans-Regular;
+    font-size: 15px;
+    color: #8f5050;
+    line-height: 1.2;
+    font-weight: unset;
+  }
+  
+  tbody tr:hover {
+    color: #0a0a0a9d;
+    background-color: #08833b80;
+    cursor: pointer;
+  }
+  
+
+  .column1 ,.column2,.column3 {
+    text-align: center;
+  }
+
+
+  @media screen and (max-width: 500px) {
+    table { 
+      display: block;
+   
+      width: 100vw;
+      position: relative;
+      margin-left: -50vw;
+      left: 50%;
+    }
+    table > *, table tr, table td, table th {
+      display: block;
+    }
+    table thead {
+      display: none;
+    }
+    table tbody tr {
+      height: auto;
+      padding: 37px 0;
+    }
+    table tbody tr td {
+      padding-left: 40% !important;
+      margin-bottom: 24px;
+
+    }
+    table tbody tr td:last-child {
+      margin-bottom: 0;
+    }
+    table tbody tr td:before {
+      font-family: OpenSans-Regular;
+      font-size: 14px;
+      color: #332d2d;
+      line-height: 1.2;
+      font-weight: unset;
+      position: absolute;
+      width: 40%;
+      left: 0;
+      top: 0;
+    }
+    table tbody tr td:nth-child(1):before {
+      content: "Title";
+    }
+    table tbody tr td:nth-child(2):before {
+      content: "City";
+    }
+    table tbody tr td:nth-child(3):before {
+      content: "Company";
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #b7c4a6d8;
+      color: #36304a;
+    }
+    
+    .column1,
+    .column2,
+    .column3 {
+      width: 100%;
+    }
+  
+    tbody tr {
+      font-size: 14px;
+    }
+  }
+  
