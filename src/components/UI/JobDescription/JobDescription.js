@@ -41,7 +41,7 @@ const JobDescription = (props) => {
                             opacity: '1'
                         }}>
                     
-                        <div dangerouslySetInnerHTML={{ __html: props.description.description }} />
+                        <div dangerouslySetInnerHTML={{ __html: props.description.jobDescription }} />
                     </div>
             </div>
      

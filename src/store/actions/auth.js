@@ -1,5 +1,5 @@
-import axios from 'axios';
-
+import * as firebase from './firebase';
+import * as authTypes from '../../shared/authType';
 import * as actionTypes from './actionTypes';
 
 export const authStart = () => {
@@ -8,11 +8,11 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (userID) => {
+    localStorage.setItem('userID', userID);
     return {
         type: actionTypes.AUTH_SUCCESS,
-        idToken: token,
-        userId: userId
+        userID: userID
     };
 };
 
@@ -23,65 +23,100 @@ export const authFail = (error) => {
     };
 };
 
+export const resetPasswordInit = () => {
+    return {
+        type: actionTypes.RESET_PASSWORD_INIT
+    };
+};
+
+export const resetPasswordStart = () => {
+    return {
+        type: actionTypes.RESET_PASSWORD_START
+    };
+};
+
+export const resetPasswordSuccess = () => {
+    return {
+        type: actionTypes.RESET_PASSWORD_SUCCESS
+    };
+};
+
+export const resetPasswordFail = (error) => {
+    return {
+        type: actionTypes.RESET_PASSWORD_FAIL,
+        error: error
+    };
+};
+
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
+    localStorage.removeItem('userID');
     return {
         type: actionTypes.AUTH_LOGOUT
     };
 };
 
-export const checkAuthTimeout = (expirationTime) => {
+export const authCheckState = () =>{
     return dispatch => {
-        setTimeout(() => {
+        const userID = localStorage.getItem('userID');
+        if(userID){
+            dispatch(authSuccess(userID));
+        }else{
             dispatch(logout());
-        }, expirationTime * 1000);
-    };
-};
+        }
+    }
+}
 
-export const auth = (email, password, isSignup) => {
+export const resstPassword = (email) =>{
+    return dispatch => {
+        dispatch(resetPasswordStart());
+        firebase.resetPassword(email)
+        .then( res => dispatch( resetPasswordSuccess()))
+        .catch(err =>   dispatch((resetPasswordFail(err))));
+    }
+}
+
+export const auth = (method, payload) => {
     return dispatch => {
         dispatch(authStart());
-        const authData = {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        };
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
-        if (!isSignup) {
-            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
-        }
-        axios.post(url, authData)
-            .then(response => {
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.localId);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-                dispatch(checkAuthTimeout(response.data.expiresIn));
-            })
-            .catch(err => {
-                dispatch(authFail(err.response.data.error));
-            });
-    };
-};
-
-
-export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            dispatch(logout());
-        } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate <= new Date()) {
-                dispatch(logout());
-            } else {
-                const userId = localStorage.getItem('userId');
-                dispatch(authSuccess(token, userId));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
-            }   
+        switch(method){
+            case authTypes.FACEBOOK_LOGIN: return facebookLogin(dispatch);
+            case authTypes.GOOGLE_LOGIN: return googleLogin(dispatch);
+            case authTypes.TWITTER_LOGIN: return twitterLogin(dispatch);
+            case authTypes.USERNAME_PASSWORD_LOGIN: return usernamePasswordLogin(dispatch, payload);
+            case authTypes.USERNAME_PASSWORD_SIGNUP: return usernamePasswordSignUp(dispatch, payload);
+            default:return;
         }
     };
 };
+
+const facebookLogin = dispatch =>{
+    firebase.app.auth().signInWithPopup(firebase.facebookProvider).then((res, err) => {
+        err ?  dispatch(authFail(err)) : dispatch(authSuccess(res.user.uid));
+    })
+}
+
+const googleLogin = dispatch =>{
+    firebase.app.auth().signInWithPopup(firebase.googleProvider).then((res, err) => {
+        err ?  dispatch(authFail(err)) : dispatch(authSuccess(res.user.uid));
+    })
+}
+
+const twitterLogin = dispatch =>{
+    firebase.app.auth().signInWithPopup(firebase.twitterProvider).then((res, err) => {
+        err ?  dispatch(authFail(err)) : dispatch(authSuccess(res.user.uid));
+    })
+}
+
+const usernamePasswordLogin = (dispatch, payload)=>{
+    firebase.signInWithEmail(payload.email, payload.password)
+    .then(res => dispatch(authSuccess(res.user.uid)))
+    .catch(err =>  dispatch(authFail(err)))
+}
+
+const usernamePasswordSignUp = (dispatch, payload)=>{
+    firebase.signupWithEmail(payload.email, payload.password)
+    .then(res => dispatch(authSuccess(res.user.uid)))
+    .catch(err =>  dispatch(authFail(err)));
+}
+
+

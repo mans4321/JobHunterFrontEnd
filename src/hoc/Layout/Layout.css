@@ -1,11 +1,12 @@
 .Content{
    
-    margin: 80px auto;
+    margin: 0 auto;
+    margin-top: 90px;
     width: 50%;
     background: #fff;
     border-radius: 45px;
     overflow: hidden;
-    padding: 35px 35px 25px 35px; 
+    padding: 25px 35px 15px 35px; 
 }
 
 .ContentTitle {
@@ -15,8 +16,7 @@
     color: #2b6ae0;
     line-height: 1.2;
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 25px;
+    padding-bottom: 20px;
   }
 
   a {

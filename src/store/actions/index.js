@@ -1,8 +1,11 @@
 export {
-    fetchJobs
+    fetchJobs,
+    fetchUserData
 } from './search';
 export {
     auth,
     logout,
-    authCheckState
+    authCheckState,
+    resstPassword,
+    resetPasswordInit
 } from './auth';

@@ -53,8 +53,7 @@
     cursor: pointer;
   }
   
-
-  .column1 ,.column2,.column3 {
+  .column1, .column2,.column3, .column4 {
     text-align: center;
   }
 
@@ -62,7 +61,6 @@
   @media screen and (max-width: 500px) {
     table { 
       display: block;
-   
       width: 100vw;
       position: relative;
       margin-left: -50vw;
@@ -114,7 +112,8 @@
     
     .column1,
     .column2,
-    .column3 {
+    .column3,
+    .column4 {
       width: 100%;
     }
   

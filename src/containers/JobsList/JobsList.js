@@ -27,12 +27,13 @@ class JobsList extends React.Component {
         let table = <Spinner />;
         if(!this.props.loading){
             table = (
-                <table>
+                <table className={classes.table}>
                 <thead>
                     <tr className={classes.table100Head}>
                         <th className={classes.column1}>Title</th>
                         <th className={classes.column2}>City</th>
                         <th className={classes.column3}>Company</th>
+                        <th className={classes.column4}>Score</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,11 +43,12 @@ class JobsList extends React.Component {
                         <td className={classes.column1}>{job.title}</td>
                         <td className={classes.column2}>{job.city}</td>
                         <td className={classes.column3}>{job.company}</td>
+                        <td className={classes.column4} >{Math.trunc(job.score * 100)} %</td>
                     </tr> 
                 )) }
      
                 </tbody>
-                        </table>
+            </table>
             )
         }
 

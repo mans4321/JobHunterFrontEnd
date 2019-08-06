@@ -46,7 +46,7 @@ class SearchEngine extends React.Component {
                     placeholder: 'Your Experience',
                     min:0
                 },
-                value: '0',
+                value: '',
                 validation: {},
                 valid: true,
             },
@@ -63,6 +63,39 @@ class SearchEngine extends React.Component {
         },
         formIsValid: false
     }
+
+    componentDidMount(){
+        if(this.props.userID && !this.props.userInfo){
+            this.props.onReadUserInfo(this.props.userID);
+        }
+        if(this.props.userInfo){
+            this.updatedControlsWithpreviousSeachInfo();
+        }
+    }
+
+    
+    componentDidUpdate(prevProps) {
+        if(this.props.userID && !this.props.userInfo){
+            this.props.onReadUserInfo(this.props.userID);
+        }
+
+        if(this.props.userInfo && (prevProps.userInfo !== this.props.userInfo )){
+            this.updatedControlsWithpreviousSeachInfo();
+        }
+    }
+    
+
+    updatedControlsWithpreviousSeachInfo = () =>{
+        let updatedControls = this.state.controls;
+        for(const key in this.props.userInfo){
+            updatedControls = updateObject(updatedControls, {
+                [key]: updateObject(updatedControls[key], {
+                    value: this.props.userInfo[key]})
+            });
+        }
+        this.setState({controls: updatedControls, formIsValid: true});
+    }
+    
 
     inputChangedHandler = (event, inputIdentifier) => {
         
@@ -89,9 +122,7 @@ class SearchEngine extends React.Component {
         for (let formElementIdentifier in this.state.controls) {
             formData[formElementIdentifier] = this.state.controls[formElementIdentifier].value;
         }
-
-        
-        this.props.onFetchJobs(formData);
+        this.props.onFetchJobs(formData, this.props.userID);
         this.props.history.replace('/JobsList');
     }
 
@@ -130,10 +161,18 @@ class SearchEngine extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        onFetchJobs: (userInfo) => dispatch( actions.fetchJobs(userInfo) )
+        userID : state.auth.userID,
+        userInfo: state.search.userInfo
     };
 };
 
-export default connect( null, mapDispatchToProps )(SearchEngine);
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchJobs: (userInfo, userID) => dispatch( actions.fetchJobs(userInfo, userID) ),
+        onReadUserInfo: (userID) => dispatch( actions.fetchUserData(userID) )
+    };
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )(SearchEngine);
