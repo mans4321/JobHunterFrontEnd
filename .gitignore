@@ -13,6 +13,7 @@
 .firebase/
 .firebaserc
 firebase.json
+src/store/actions/firebase.js
 
 # misc
 .DS_Store
