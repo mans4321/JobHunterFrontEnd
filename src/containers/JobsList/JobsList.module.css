@@ -11,7 +11,7 @@
     position: relative;
   }
   table td, table th {
-    padding-left: 10px;
+    padding-left: 1vw;
   }
   table thead tr {
     height: 60px;
@@ -35,10 +35,14 @@
     font-weight: unset;
   }
   
-  tbody tr:nth-child(even) {
+  .Even {
     background-color: #79ceda9c;
   }
-  
+
+  .Viewed{
+    background-color: #aaafac80;
+  }
+ 
   tbody tr {
     font-family: OpenSans-Regular;
     font-size: 15px;
@@ -52,10 +56,21 @@
     background-color: #08833b80;
     cursor: pointer;
   }
-  
+
   .column1, .column2,.column3, .column4 {
+      text-align: center;
+  }
+  .column1{
+    width: 40%;
     text-align: center;
   }
+  .column2,.column3, .column4{
+    width: 20%;
+  }
+  .column4{
+    padding-right: 1vw;
+  }
+
 
 
   @media screen and (max-width: 500px) {

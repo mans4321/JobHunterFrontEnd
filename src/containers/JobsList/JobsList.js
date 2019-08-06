@@ -16,11 +16,12 @@ class JobsList extends React.Component {
         this.setState( { show: false } );
     }
 
-    showJobDescripton = (jobDescripton) => {
+    showJobDescripton = (jobDescripton, index) => {
         this.setState( { show: true,
                         jobDescripton: jobDescripton
                     })
-                }
+         this.props.jobsList[index].viewed = true;       
+    }
 
     render() {
         
@@ -39,7 +40,10 @@ class JobsList extends React.Component {
                 <tbody>
 
                 {this.props.jobsList.map((job, index) => (
-                    <tr key={index} onClick={() => this.showJobDescripton(job)}>
+                    <tr 
+                        className={[index % 2 === 0 ? classes.Even : null ,job.viewed ? classes.Viewed : null].join(' ')} 
+                        key={index}
+                        onClick={() => this.showJobDescripton(job, index)}>
                         <td className={classes.column1}>{job.title}</td>
                         <td className={classes.column2}>{job.city}</td>
                         <td className={classes.column3}>{job.company}</td>
