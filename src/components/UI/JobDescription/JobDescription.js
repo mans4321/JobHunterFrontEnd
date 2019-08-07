@@ -10,6 +10,7 @@ import classes from './JobDescription.module.css';
 import Aux from '../../../hoc/Aux/Aux';
 import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
+import {capitalize} from '../../../shared/utility';
 
 
 const JobDescription = (props) => {
@@ -25,19 +26,19 @@ const JobDescription = (props) => {
 
                     <div className={classes.logo}>
                         <FontAwesomeIcon  icon={faMapMarkerAlt} />
-                        <b>{props.description.city}</b>
+                        <b>{capitalize(props.description.city)}</b>
                     </div>
                     <div className={classes.logo}>
                         <FontAwesomeIcon  icon={faUserTie} /> 
-                        <b>{props.description.title}</b>
+                        <b>{capitalize(props.description.title)}</b>
                     </div>
                     <div className={classes.logo}>
                         <FontAwesomeIcon  icon={faBuilding} /> 
-                        <b>{props.description.company}</b>
+                        <b>{capitalize(props.description.company)}</b>
                     </div>
                     <div className={classes.logo}>
                         <FontAwesomeIcon  icon={faLink} /> 
-                        <b>{props.description.website}</b>
+                        <b>{capitalize(props.description.website)}</b>
                     </div>
 
                     <div className={classes.Apply}  >

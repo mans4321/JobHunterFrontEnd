@@ -8,6 +8,12 @@ button:hover {
     cursor: pointer;
 }
 
+button:disabled {
+  cursor: pointer;
+  background-color: bisque;
+  color: #fff;
+}
+
 .ButttonContainer {
   display: flex;
   flex-wrap: wrap;

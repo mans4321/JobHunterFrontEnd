@@ -90,7 +90,9 @@ class SearchEngine extends React.Component {
         for(const key in this.props.userInfo){
             updatedControls = updateObject(updatedControls, {
                 [key]: updateObject(updatedControls[key], {
-                    value: this.props.userInfo[key]})
+                    value: this.props.userInfo[key],
+                    valid: true
+                })
             });
         }
         this.setState({controls: updatedControls, formIsValid: true});

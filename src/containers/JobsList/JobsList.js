@@ -5,6 +5,7 @@ import Aux from '../../hoc/Aux/Aux'
 import JobDescription from '../../components/UI/JobDescription/JobDescription';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './JobsList.module.css';
+import {capitalize} from '../../shared/utility';
 
 class JobsList extends React.Component {
     state = { 
@@ -44,9 +45,9 @@ class JobsList extends React.Component {
                         className={[index % 2 === 0 ? classes.Even : null ,job.viewed ? classes.Viewed : null].join(' ')} 
                         key={index}
                         onClick={() => this.showJobDescripton(job, index)}>
-                        <td className={classes.column1}>{job.title}</td>
-                        <td className={classes.column2}>{job.city}</td>
-                        <td className={classes.column3}>{job.company}</td>
+                        <td className={classes.column1}>{capitalize(job.title)}</td>
+                        <td className={classes.column2}>{capitalize(job.city)}</td>
+                        <td className={classes.column3}>{capitalize(job.company)}</td>
                         <td className={classes.column4} >{Math.trunc(job.score * 100)} %</td>
                     </tr> 
                 )) }

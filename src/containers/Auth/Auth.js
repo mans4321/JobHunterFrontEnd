@@ -52,7 +52,8 @@ class Auth extends React.Component {
             }
         },
         isSignUp: false,
-        showedMessage: false
+        showedMessage: false,
+        formIsValid: false
     }
 
     switchAuthModeHandler = () => {
@@ -69,7 +70,12 @@ class Auth extends React.Component {
                 touched: true
             } )
         } );
-        this.setState( { controls: updatedControls } );
+
+        let formIsValid = true;
+        for (let controlName in updatedControls) {
+            formIsValid = updatedControls[controlName].valid && formIsValid;
+        }
+        this.setState({controls: updatedControls, formIsValid: formIsValid});
     }
 
     submitHandler = ( event ) => {
@@ -148,7 +154,7 @@ class Auth extends React.Component {
                                         <Link to="/resetPassword">Forgot password?</Link>
                                     </div>
                             }
-                            <Button clicked={this.submitHandler} >{this.state.isSignUp ? 'SignUp':'Login'}</Button>
+                            <Button clicked={this.submitHandler} disabled={!this.state.formIsValid}>{this.state.isSignUp ? 'SignUp':'Login'}</Button>
                             
                         
                             {this.state.isSignUp? null :
