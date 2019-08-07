@@ -8,3 +8,8 @@ body {
 	background: url('./assets/images/bg-01.jpg') no-repeat center center fixed;
 	background-size: cover;
   }
+
+  body, html {
+	height: 100%;
+	margin: 0;
+  }
