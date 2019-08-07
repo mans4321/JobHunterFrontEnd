@@ -34,7 +34,6 @@ export const fetchUserDataSuccess = (userInfo) => {
     return dispatch => {
         firebase.database.ref('/users/' + userID).once('value')
         .then(snapshot=> {
-                console.log(snapshot.val())
                 dispatch(fetchUserDataSuccess(snapshot.val()));
           }).catch(err=> console.log(err));
     }

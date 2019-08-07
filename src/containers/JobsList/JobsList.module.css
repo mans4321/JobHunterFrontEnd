@@ -36,17 +36,17 @@
   }
   
   .Even {
-    background-color: #79ceda9c;
+    background-color: rgb(178, 226, 235);
   }
 
   .Viewed{
-    background-color: #aaafac80;
+    background-color: #e728685d;
   }
  
   tbody tr {
     font-family: OpenSans-Regular;
     font-size: 15px;
-    color: #8f5050;
+    color: #a72020;
     line-height: 1.2;
     font-weight: unset;
   }
@@ -62,7 +62,6 @@
   }
   .column1{
     width: 40%;
-    text-align: center;
   }
   .column2,.column3, .column4{
     width: 20%;
@@ -75,7 +74,7 @@
 
   @media screen and (max-width: 500px) {
     table { 
-      display: block;
+      display: flex;
       width: 100vw;
       position: relative;
       margin-left: -50vw;
@@ -83,6 +82,8 @@
     }
     table > *, table tr, table td, table th {
       display: block;
+      box-sizing: border-box;
+      padding-right: 4vw;
     }
     table thead {
       display: none;
@@ -120,9 +121,8 @@
       content: "Company";
     }
 
-    tbody tr:nth-child(even) {
-      background-color: #b7c4a6d8;
-      color: #36304a;
+    table tbody tr td:nth-child(4):before {
+      content: "Score";
     }
     
     .column1,
@@ -133,7 +133,17 @@
     }
   
     tbody tr {
-      font-size: 14px;
+      font-size: 15px;
+      line-height: 1.2;
+      color: #332d2d;
+    }
+
+    .Even {
+      background-color: rgba(70, 223, 240, 0.616);
+    }
+
+    .Viewed{
+      background-color: #e728685d;
     }
   }
   

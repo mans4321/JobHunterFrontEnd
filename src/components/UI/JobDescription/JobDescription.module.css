@@ -27,12 +27,26 @@
     margin:  auto;
     text-align: center;
     padding-top: 17px;
-    padding-bottom: 10px; 
+    padding-bottom: 3px; 
   }
 
 .logo {
     display: inline-block;
     box-sizing: border-box;
+}
+.Close{
+    position:absolute;
+    right: 3px;
+    top: 2px;
+    margin-bottom: 3px;
+}
+
+.Apply{
+    display: block;
+    margin-top: 3px;
+    margin: auto;
+    width: 50%;
+    height: 5%;
 }
 
 .logo svg{
