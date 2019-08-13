@@ -36,33 +36,6 @@ export const checkValidity = ( value, rules ) => {
     return isValid;
 }
 
-export const mergedSortedArrays = (a, b) => {
-
-    let mergedArray = [], i = 0, j = 0;
-
-    while(i < a.length && j < b.length) {
-        if(a[i] < b[j]) {
-            mergedArray.push(a[i]);
-            i++;
-        } else {
-            mergedArray.push(b[j]);
-            j++;
-        }
-    }
-
-    while(i < a.length) {
-        mergedArray.push(a[i]);
-        i++;
-    }
-
-    while(j < b.length) {
-        mergedArray.push(b[j]);
-        j++;
-    }
-
-    return mergedArray;
-}
-
 export const capitalize = str => {
     let splitStr = str.toLowerCase().split(' ');
     for (let i = 0; i < splitStr.length; i++) {

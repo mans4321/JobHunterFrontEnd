@@ -18,10 +18,10 @@ class JobsList extends React.Component {
     }
 
     showJobDescripton = (jobDescripton, index) => {
-        this.setState( { show: true,
-                        jobDescripton: jobDescripton
-                    })
-         this.props.jobsList[index].viewed = true;       
+         this.props.jobsList[index].viewed = true;   
+         this.setState( { show: true,
+            jobDescripton: jobDescripton
+        })    
     }
 
     render() {

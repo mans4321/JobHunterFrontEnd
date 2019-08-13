@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject, mergedSortedArrays } from '../../shared/utility';
+import { updateObject} from '../../shared/utility';
 
 const initialState = {
     jobsList: [],
@@ -18,7 +18,8 @@ const fetchJobsStart = ( state ) => {
 };
 
 const fetchJobsSuccess = ( state, action ) => {
-    let jobsList = mergedSortedArrays(state.jobsList, action.jobsList);
+    let jobsList = mergedSortedJobs(state.jobsList, action.jobsList);
+    jobsList = filterSortedJobs(jobsList);
     return updateObject( state, {
         jobsList: jobsList,
         loading: false
@@ -31,6 +32,54 @@ const fetchJobsFail = ( state, action ) => {
 
 const fetchUserDataSuccess = ( state, action ) => {
     return updateObject( state, { userInfo: action.userInfo } );
+}
+
+const mergedSortedJobs = (a, b) => {
+
+    let mergedArray = [], i = 0, j = 0;
+    while(i < a.length && j < b.length) {
+        if(Math.trunc(a[i].score * 100) > Math.trunc(b[j].score * 100) ){
+            mergedArray.push(a[i]);
+            i++;
+        } else {
+            mergedArray.push(b[j]);
+            j++;
+        }
+    }
+
+    while(i < a.length) {
+        mergedArray.push(a[i]);
+        i++;
+    }
+
+    while(j < b.length) {
+        mergedArray.push(b[j]);
+        j++;
+    }
+
+    return mergedArray;
+}
+
+const filterSortedJobs = jobList => {
+    let arr = [] , i = 0;
+    arr.push(jobList[0]);
+
+    while(i < jobList.length){
+        let j = i + 1;
+        while(j < jobList.length && isEquals(jobList[i], jobList[j])){
+            j++;
+        }
+        if(j < jobList.length)
+            arr.push(jobList[j]);
+        i = j;
+    }
+    return arr;
+}
+
+const isEquals = (jobDes1 , jobDes2) =>{
+    return jobDes1.title === jobDes2.title
+             && jobDes1.company === jobDes2.company 
+                && Math.trunc(jobDes1.score * 100) === Math.trunc(jobDes2.score * 100);
 }
 
 const reducer = ( state = initialState, action ) => {
