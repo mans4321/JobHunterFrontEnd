@@ -11,7 +11,6 @@
 
 .ContentTitle {
     display: block;
-    font-family: Poppins-Bold;
     font-size: 39px;
     color: #2b6ae0;
     line-height: 1.2;
@@ -20,7 +19,6 @@
   }
 
   a {
-    font-family: Poppins-Regular;
     font-size: 14px;
     line-height: 1.7;
     color: #6572ee;
@@ -48,7 +46,6 @@ a:hover {
   .text-middle {vertical-align: middle;}
   
   .txt1 {
-    font-family: Poppins-Regular;
     font-size: 14px;
     line-height: 1.5;
     color: #666666;
