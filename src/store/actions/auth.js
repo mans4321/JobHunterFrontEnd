@@ -90,21 +90,21 @@ export const auth = (method, payload) => {
 };
 
 const facebookLogin = dispatch =>{
-    firebase.app.auth().signInWithPopup(firebase.facebookProvider).then((res, err) => {
-        err ?  dispatch(authFail(err)) : dispatch(authSuccess(res.user.uid));
-    })
+    firebase.app.auth().signInWithPopup(firebase.facebookProvider)
+    .then(res => dispatch(authSuccess(res.user.uid)))
+    .catch(err => dispatch(authFail(err)))
 }
 
 const googleLogin = dispatch =>{
-    firebase.app.auth().signInWithPopup(firebase.googleProvider).then((res, err) => {
-        err ?  dispatch(authFail(err)) : dispatch(authSuccess(res.user.uid));
-    })
+    firebase.app.auth().signInWithPopup(firebase.googleProvider)
+    .then(res => dispatch(authSuccess(res.user.uid)))
+    .catch(err => dispatch(authFail(err)))
 }
 
 const twitterLogin = dispatch =>{
-    firebase.app.auth().signInWithPopup(firebase.twitterProvider).then((res, err) => {
-        err ?  dispatch(authFail(err)) : dispatch(authSuccess(res.user.uid));
-    })
+    firebase.app.auth().signInWithPopup(firebase.twitterProvider)
+    .then(res => dispatch(authSuccess(res.user.uid)))
+    .catch(err => dispatch(authFail(err)))
 }
 
 const usernamePasswordLogin = (dispatch, payload)=>{
