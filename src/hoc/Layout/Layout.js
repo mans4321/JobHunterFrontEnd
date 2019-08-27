@@ -13,7 +13,7 @@ class Layout extends React.Component {
     }
 
     sideDrawerClosedHandler = () => {
-        this.setState( { showSideDrawer: false } );
+        this.setState( { showSideDrawer:false } );
     }
 
     sideDrawerToggleHandler = () => {
